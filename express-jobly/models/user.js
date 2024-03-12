@@ -200,21 +200,19 @@ class User {
    * returns {applied: jobId}
    */
   static async apply(username, jobId) {
-    const userCheck = await db.query(`
-    SELECT username FROM users WHERE username = $1`, [username])
-
-    if (userCheck.rows.length === 0) throw new NotFoundError(`No user: ${username}`)
-
-    const jobCheck = await db.query(`
-      SELECT id FROM jobs where id = $1`, [jobId])
-
-    if (jobCheck.rows.length === 0) throw new NotFoundError(`No job with id ${jobId}`)
-
-    await db.query(`
-      INSERT INTO applications
-      VALUES ($1, $2)`, [username, jobId])
-    
-    return { applied: jobId }
+      const userCheck = await db.query(`
+      SELECT username FROM users WHERE username = $1`, [username])
+      if (userCheck.rows.length === 0) throw new NotFoundError(`No user: ${username}`)
+  
+      const jobCheck = await db.query(`
+        SELECT id FROM jobs where id = $1`, [jobId])
+      if (jobCheck.rows.length === 0) throw new NotFoundError(`No job with id ${jobId}`)
+  
+      await db.query(`
+        INSERT INTO applications
+        VALUES ($1, $2)`, [username, jobId])
+      
+      return { applied: jobId }
   }
 
 

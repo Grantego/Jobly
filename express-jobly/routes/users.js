@@ -70,6 +70,7 @@ router.get("/", ensureIsAdmin, async function (req, res, next) {
 
 router.get("/:username", ensureAdminOrUser, async function (req, res, next) {
   try {
+    console.log("this is running")
     const user = await User.get(req.params.username);
     return res.json({ user });
   } catch (err) {
@@ -123,7 +124,8 @@ router.delete("/:username", ensureAdminOrUser, async function (req, res, next) {
  **/
 router.post("/:username/jobs/:id", ensureAdminOrUser, async function (req, res, next) {
   try {
-    const application = await User.apply(req.params.username, req.params)
+    const application = await User.apply(req.params.username, +req.params.id)
+    console.log(application)
     return res.json(application)
   } catch(e) {
     return next(e)

@@ -218,7 +218,7 @@ describe("PATCH /companies/:handle", function () {
         .send({
           name: "C1-new"
         });
-    expect(resp.statusCode).toEqual(500); // Not sure why this is not a 401 error
+    expect(resp.statusCode).toEqual(401); // Not sure why this is not a 401 error
   });
 
   test("not found on no such company", async function () {
@@ -265,7 +265,7 @@ describe("DELETE /companies/:handle", function () {
   test("unauth for anon", async function () {
     const resp = await request(app)
         .delete(`/companies/c1`);
-    expect(resp.statusCode).toEqual(500); // Not sure why this is not a 401 error
+    expect(resp.statusCode).toEqual(401); // Not sure why this is not a 401 error
   });
 
   test("not found for no such company", async function () {

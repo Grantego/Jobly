@@ -204,7 +204,7 @@ describe("PATCH /jobs:id", function() {
         .send({
             title: "testjob1"
         })
-    expect(res.statusCode).toEqual(500)
+    expect(res.statusCode).toEqual(401)
     })
 
 })
@@ -235,7 +235,7 @@ describe("DELETE /jobs:id", function() {
     const res = await request(app)
         .delete(`/jobs/${jobIds[0]}`)
 
-    expect(res.statusCode).toEqual(500)
+    expect(res.statusCode).toEqual(401)
     })
 
 })
